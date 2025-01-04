@@ -6,13 +6,13 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:55:05 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/04 17:34:36 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:05:11 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	check_new_line_buffer(char *str)
+int	ft_charlen(char *str)
 {
 	int	i;
 
@@ -30,14 +30,14 @@ int	check_new_line_buffer(char *str)
 
 void	ft_free(char **str)
 {
-	if (str && *str)
+	if (str)
 	{
 		free(*str);
 		*str = NULL;
 	}
 }
 
-char	*process_line(char **full_buff, int new_line_index)
+char	*ft_handle(char **full_buff, int new_line_index)
 {
 	char	*line;
 	char	*temp;
@@ -50,32 +50,27 @@ char	*process_line(char **full_buff, int new_line_index)
 	return (line);
 }
 
-char	*read_and_join(int fd, char **full_buff)
+char	*get_line(int fd, char **full_buff)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
 
-	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	while (check_new_line_buffer(*full_buff) == -1)
+	while (ft_charlen(*full_buff) == -1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
 		{
 			if (bytes_read < 0)
-			{
-				free(buffer);
-				ft_free(full_buff);
-				return (NULL);
-			}
+				return (free(buffer), ft_free(full_buff), NULL);
 			break ;
 		}
 		buffer[bytes_read] = '\0';
 		*full_buff = ft_strjoin(*full_buff, buffer);
 	}
-	free(buffer);
-	return (*full_buff);
+	return (free(buffer), *full_buff);
 }
 
 char	*get_next_line(int fd)
@@ -84,9 +79,9 @@ char	*get_next_line(int fd)
 	int			new_line_index;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!read_and_join(fd, &full_buff))
+	if (!get_line(fd, &full_buff))
 		return (NULL);
 	if (!full_buff || *full_buff == '\0')
 	{
@@ -94,14 +89,12 @@ char	*get_next_line(int fd)
 			ft_free(&full_buff);
 		return (NULL);
 	}
-	new_line_index = check_new_line_buffer(full_buff);
+	new_line_index = ft_charlen(full_buff);
 	if (new_line_index >= 0)
-		return (process_line(&full_buff, new_line_index));
+		return (ft_handle(&full_buff, new_line_index));
 	line = ft_strdup(full_buff);
-	ft_free(&full_buff);
-	return (line);
+	return (ft_free(&full_buff), line);
 }
-
 #include <stdio.h>
 
 int main()

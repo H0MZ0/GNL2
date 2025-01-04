@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:54:47 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/04 17:42:00 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:29:50 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ size_t	ft_strlen(const char *str)
 
 char	*ft_strdup(const char *s1)
 {
+	char	*dest;
 	int		i;
-	char	*cpy;
 	int		len;
 
 	len = ft_strlen(s1);
-	cpy = malloc(len + 1);
-	if (!cpy)
+	dest = malloc(len + 1);
+	if (!dest)
 		return (NULL);
 	i = 0;
 	while (s1[i])
 	{
-		cpy[i] = s1[i];
+		dest[i] = s1[i];
 		i++;
 	}
-	cpy[i] = 0;
-	return (cpy);
+	dest[i] = '\0';
+	return (dest);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

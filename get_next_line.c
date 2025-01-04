@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:55:05 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/04 18:05:11 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:26:37 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	ft_free(char **str)
 	}
 }
 
-char	*ft_handle(char **full_buff, int new_line_index)
+char	*ft_handle(char **full_buff, int index)
 {
 	char	*line;
 	char	*temp;
 
-	line = ft_substr(*full_buff, 0, new_line_index + 1);
-	temp = ft_substr(*full_buff, new_line_index + 1,
-			ft_strlen(*full_buff) - new_line_index - 1);
+	line = ft_substr(*full_buff, 0, index + 1);
+	temp = ft_substr(*full_buff, index + 1,
+			ft_strlen(*full_buff) - index - 1);
 	ft_free(full_buff);
 	*full_buff = temp;
 	return (line);
@@ -76,7 +76,7 @@ char	*get_line(int fd, char **full_buff)
 char	*get_next_line(int fd)
 {
 	static char	*full_buff;
-	int			new_line_index;
+	int			index;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -89,25 +89,25 @@ char	*get_next_line(int fd)
 			ft_free(&full_buff);
 		return (NULL);
 	}
-	new_line_index = ft_charlen(full_buff);
-	if (new_line_index >= 0)
-		return (ft_handle(&full_buff, new_line_index));
+	index = ft_charlen(full_buff);
+	if (index >= 0)
+		return (ft_handle(&full_buff, index));
 	line = ft_strdup(full_buff);
 	return (ft_free(&full_buff), line);
 }
-#include <stdio.h>
+// #include <stdio.h>
 
-int main()
-{
-    int fd;
-    char *ptr;
+// int main()
+// {
+//     int fd;
+//     char *ptr;
 
-    fd = open("text.txt", O_RDWR);
-    while ((ptr = get_next_line(fd)))
-    {
-        printf("%s", ptr);
-        free(ptr);
-    }
-	close(fd);
-    return (0);
-}
+//     fd = open("text.txt", O_RDWR);
+//     while ((ptr = get_next_line(fd)))
+//     {
+//         printf("%s", ptr);
+//         free(ptr);
+//     }
+// 	close(fd);
+//     return (0);
+// }

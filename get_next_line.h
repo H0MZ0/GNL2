@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 01:21:53 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/04 18:04:37 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:19:21 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <limits.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2147483647
+#  define BUFFER_SIZE 1
 # endif
 
 char	*get_next_line(int fd);

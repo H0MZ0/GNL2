@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjoukni <sjoukni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 09:58:10 by sjoukni           #+#    #+#             */
-/*   Updated: 2024/12/29 18:45:59 by sjoukni          ###   ########.fr       */
+/*   Created: 2025/01/04 16:54:47 by hakader           #+#    #+#             */
+/*   Updated: 2025/01/04 17:42:00 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,16 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	result[i + j] = '\0';
-	if(s1)
-		free(s1);
+	if (s1)
+		ft_free(&s1);
 	return (result);
 }
 
-int	ft_strchr(char *s, int c)
+size_t	ft_min(size_t a, size_t b)
 {
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	return (-1);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -93,22 +84,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	size_t	s_len;
 
-	if (s == NULL)
+	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
 	if (start >= s_len)
-		return ((char *)malloc(1));
-	if (len > s_len - start)
-		len = s_len - start;
-	ptr = (char *)malloc(len + 1);
-	if (ptr == NULL)
+		return (ft_strdup(""));
+	len = ft_min(len, s_len - start);
+	ptr = malloc(len + 1);
+	if (!ptr)
 		return (NULL);
 	i = 0;
 	while (i < len)
-	{
-		ptr[i] = s[start + i];
-		i++;
-	}
+		ptr[i++] = s[start++];
 	ptr[i] = '\0';
 	return (ptr);
 }

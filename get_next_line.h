@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 01:21:53 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/04 18:19:21 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/04 18:51:40 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-// # include <stddef.h>
-// # include <stdio.h>
 # include <stdlib.h>
-// # include <string.h>
 # include <limits.h>
 
 # ifndef BUFFER_SIZE

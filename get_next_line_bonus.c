@@ -6,11 +6,11 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/05 18:21:50 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/05 18:42:12 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_charlen(char *str)
 {
@@ -75,48 +75,48 @@ char	*get_line(int fd, char **full_buff)
 
 char	*get_next_line(int fd)
 {
-	static char	*full_buff;
+	static char	*full_buff[1024];
 	int			index;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!get_line(fd, &full_buff))
+	if (!get_line(fd, &full_buff[fd]))
 		return (NULL);
-	if (!full_buff || *full_buff == '\0')
+	if (!full_buff[fd] || *full_buff[fd] == '\0')
 	{
-		if (full_buff && *full_buff == '\0')
-			ft_free(&full_buff);
+		if (full_buff[fd] && *full_buff[fd] == '\0')
+			ft_free(&full_buff[fd]);
 		return (NULL);
 	}
-	index = ft_charlen(full_buff);
+	index = ft_charlen(full_buff[fd]);
 	if (index >= 0)
-		return (ft_handle(&full_buff, index));
-	line = ft_strdup(full_buff);
-	return (ft_free(&full_buff), line);
+		return (ft_handle(&full_buff[fd], index));
+	line = ft_strdup(full_buff[fd]);
+	return (ft_free(&full_buff[fd]), line);
 }
-#include <stdio.h>
+// #include <stdio.h>
 
-int main()
-{
-    int fd1;
-    int fd2;
-    char *ptr1;
-    char *ptr2;
+// int main()
+// {
+//     int fd1;
+//     int fd2;
+//     char *ptr1;
+//     char *ptr2;
 
-    fd1 = open("text.txt", O_RDWR);
-    while ((ptr1 = get_next_line(fd1)))
-    {
-        printf("%s", ptr1);
-        free(ptr1);
-    }
-	close(fd2);
-    fd2 = open("txt.txt", O_RDWR);
-    while ((ptr2 = get_next_line(fd2)))
-    {
-        printf("%s", ptr2);
-        free(ptr2);
-    }
-	close(fd2);
-    return (0);
-}
+//     fd1 = open("text.txt", O_RDWR);
+//     while ((ptr1 = get_next_line(fd1)))
+//     {
+//         printf("%s", ptr1);
+//         free(ptr1);
+//     }
+// 	close(fd2);
+//     fd2 = open("txt.txt", O_RDWR);
+//     while ((ptr2 = get_next_line(fd2)))
+//     {
+//         printf("%s", ptr2);
+//         free(ptr2);
+//     }
+// 	close(fd2);
+//     return (0);
+// }

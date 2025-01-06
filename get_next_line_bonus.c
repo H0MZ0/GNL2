@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/06 16:08:54 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:12:18 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 	int			index;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd < 1024)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
 	if (!get_line(fd, &full_buff[fd]))
 		return (NULL);

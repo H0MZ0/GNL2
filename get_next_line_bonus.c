@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/06 09:59:11 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/06 10:01:35 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,71 +16,6 @@ int	ft_charlen(char *str)
 {
 	int	i;
 
-	i = 0;
-	if (!str)
-		return (-1);
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	ft_free(char **str)
-{
-	if (str)
-	{
-		free(*str);
-		*str = NULL;
-	}
-}
-
-char	*ft_handle(char **full_buff, int index)
-{
-	char	*line;
-	char	*temp;
-
-	line = ft_substr(*full_buff, 0, index + 1);
-	temp = ft_substr(*full_buff, index + 1,
-			ft_strlen(*full_buff) - index - 1);
-	ft_free(full_buff);
-	*full_buff = temp;
-	return (line);
-}
-
-char	*get_line(int fd, char **full_buff)
-{
-	char	*buffer;
-	ssize_t	bytes_read;
-
-	buffer = malloc((size_t)BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	while (ft_charlen(*full_buff) == -1)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-		{
-			if (bytes_read < 0)
-				return (free(buffer), ft_free(full_buff), NULL);
-			break ;
-		}
-		buffer[bytes_read] = '\0';
-		*full_buff = ft_strjoin(*full_buff, buffer);
-	}
-	return (free(buffer), *full_buff);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*full_buff[1024];
-	int			index;
-	char		*line;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
 	i = 0;
 	if (!str)
 		return (-1);

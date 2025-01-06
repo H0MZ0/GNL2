@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/06 10:01:35 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/06 11:39:15 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,28 @@ char	*ft_handle(char **full_buff, int index)
 	return (line);
 }
 
-char	*get_line(int fd, char **full_buff)
-{
-	char	*buffer;
-	ssize_t	bytes_read;
+char *get_line(int fd, char **full_buff) {
+    char *buffer;
+    ssize_t bytes_read;
 
-	buffer = malloc((size_t)BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	while (ft_charlen(*full_buff) == -1)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-		{
-			if (bytes_read < 0)
-				return (free(buffer), ft_free(full_buff), NULL);
-			break ;
-		}
-		buffer[bytes_read] = '\0';
-		*full_buff = ft_strjoin(*full_buff, buffer);
-	}
-	return (free(buffer), *full_buff);
+    buffer = malloc((size_t)BUFFER_SIZE + 1);
+    if (!buffer)
+        return (NULL);
+    while (ft_charlen(*full_buff) == -1) {
+        bytes_read = read(fd, buffer, BUFFER_SIZE);
+        if (bytes_read <= 0) {
+            free(buffer);
+            if (bytes_read < 0)
+                ft_free(full_buff);
+            return (*full_buff); // Return the remaining buffer if EOF
+        }
+        buffer[bytes_read] = '\0';
+        *full_buff = ft_strjoin(*full_buff, buffer);
+    }
+    free(buffer);
+    return (*full_buff);
 }
+
 
 char	*get_next_line(int fd)
 {
@@ -79,7 +79,7 @@ char	*get_next_line(int fd)
 	int			index;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
 	if (!get_line(fd, &full_buff[fd]))
 		return (NULL);
@@ -95,28 +95,29 @@ char	*get_next_line(int fd)
 	line = ft_strdup(full_buff[fd]);
 	return (ft_free(&full_buff[fd]), line);
 }
-// #include <stdio.h>
+#include <stdio.h>
+int main() {
+    int fd1, fd2;
+    char *line1, *line2;
 
-// int main()
-// {
-//     int fd1;
-//     int fd2;
-//     char *ptr1;
-//     char *ptr2;
+    fd1 = open("text.txt", O_RDWR);
+    fd2 = open("txt.txt", O_RDWR);
+    if (fd1 < 0 || fd2 < 0)
+        return (1);
+    while (1) {
+        line1 = get_next_line(fd1);
+        if (!line1)
+            break;
+        printf("%s", line1);
+        free(line1);
 
-//     fd1 = open("text.txt", O_RDWR);
-//     while ((ptr1 = get_next_line(fd1)))
-//     {
-//         printf("%s", ptr1);
-//         free(ptr1);
-//     }
-// 	close(fd2);
-//     fd2 = open("txt.txt", O_RDWR);
-//     while ((ptr2 = get_next_line(fd2)))
-//     {
-//         printf("%s", ptr2);
-//         free(ptr2);
-//     }
-// 	close(fd2);
-//     return (0);
-// }
+        line2 = get_next_line(fd2);
+        if (!line2)
+            break;
+        printf("%s", line2);
+        free(line2);
+    }
+    close(fd1);
+    close(fd2);
+    return (0);
+}

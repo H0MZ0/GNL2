@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/06 12:22:47 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/06 13:18:23 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char	*get_next_line(int fd)
 	return (ft_free(&full_buff), line);
 }
 // #include <stdio.h>
-
 // int main()
 // {
 //     int fd;

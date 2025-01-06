@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/06 11:56:02 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/06 11:58:14 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,27 +99,28 @@ char	*get_next_line(int fd)
 }
 // #include <stdio.h>
 // int main() {
-//     int fd1, fd2;
-//     char *line1, *line2;
+// 	int fd1, fd2;
+// 	char *line1, *line2;
 
-//     fd1 = open("text.txt", O_RDWR);
-//     fd2 = open("txt.txt", O_RDWR);
-//     if (fd1 < 0 || fd2 < 0)
-//         return (1);
-//     while (1) {
-//         line1 = get_next_line(fd1);
-//         if (!line1)
-//             break;
-//         printf("%s", line1);
-//         free(line1);
+// 	fd1 = open("text.txt", O_RDWR);
+// 	fd2 = open("txt.txt", O_RDWR);
+// 	if (fd1 < 0 || fd2 < 0)
+// 		return (1);
+// 	while (1)
+// 	{
+// 		line1 = get_next_line(fd1);
+// 		if (!line1)
+// 			break;
+// 		printf("%s", line1);
+// 		free(line1);
 
-//         line2 = get_next_line(fd2);
-//         if (!line2)
-//             break;
-//         printf("%s", line2);
-//         free(line2);
-//     }
-//     close(fd1);
-//     close(fd2);
-//     return (0);
+// 		line2 = get_next_line(fd2);
+// 		if (!line2)
+// 			break;
+// 		printf("%s", line2);
+// 		free(line2);
+// 	}
+// 	close(fd1);
+// 	close(fd2);
+// 	return (0);
 // }

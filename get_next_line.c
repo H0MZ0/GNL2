@@ -6,7 +6,7 @@
 /*   By: hakader <hakader@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:11 by hakader           #+#    #+#             */
-/*   Updated: 2025/01/06 11:42:30 by hakader          ###   ########.fr       */
+/*   Updated: 2025/01/06 12:11:33 by hakader          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,19 @@ char	*get_next_line(int fd)
 	line = ft_strdup(full_buff);
 	return (ft_free(&full_buff), line);
 }
-// #include <stdio.h>
+#include <stdio.h>
 
-// int main()
-// {
-//     int fd;
-//     char *ptr;
+int main()
+{
+    int fd;
+    char *ptr;
 
-//     fd = open("text.txt", O_RDWR);
-//     while ((ptr = get_next_line(fd)))
-//     {
-//         printf("%s", ptr);
-//         free(ptr);
-//     }
-// 	close(fd);
-//     return (0);
-// }
+    fd = open("text.txt", O_RDWR);
+    while ((ptr = get_next_line(fd)))
+    {
+        printf("%s", ptr);
+        free(ptr);
+    }
+	close(fd);
+    return (0);
+}
